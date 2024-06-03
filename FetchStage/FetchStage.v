@@ -2,22 +2,23 @@
 `include "Mux.v"
 `include "PC_Module.v"
 `include "Summ.v"
+`include "../Constants.v"
 
 module FetchStage (
-    input clk,              output [31:0] InstrD,
-    input rst,              output [31:0] PC_DE,
+    input clk,              output [`INST_SIZE-1:0] InstrD,
+    input rst,              output [`INST_SIZE-1:0] PC_DE,
     input PC_R,
-    input [31:0] PC_EX,
-    input [31:0] PC_DISP
+    input [`INST_SIZE-1:0] PC_EX,
+    input [`INST_SIZE-1:0] PC_DISP
 );
 
-    wire [31:0] PC, PC_NEXT;
+    wire [`INST_SIZE-1:0] PC, PC_NEXT;
 
-    wire [31:0] PC_1, PC_2;
-    wire [31:0] InstrF;
+    wire [`INST_SIZE-1:0] PC_1, PC_2;
+    wire [`INST_SIZE-1:0] InstrF;
 
-    reg [31:0] InstrF_r;
-    reg [31:0] PC_F_r;
+    reg [`INST_SIZE-1:0] InstrF_r;
+    reg [`INST_SIZE-1:0] PC_F_r;
 
     Mux PC1_MUX (
         .i0(PC),
@@ -27,7 +28,7 @@ module FetchStage (
     );
 
     Mux PC2_MUX (
-        .i0(32'h00000004),
+        .i0(`INCR_SIZE),
         .i1(PC_DISP),
         .sel(PC_R),
         .out(PC_2)
@@ -53,9 +54,9 @@ module FetchStage (
     );
 
     always @(posedge clk or negedge rst) begin
-        if (rst == 1'b1) begin
-            InstrF_r <= 32'h00000000;
-            PC_F_r <= 32'h00000000;
+        if (rst) begin
+            InstrF_r <= `INST_SIZE_ZEROS;
+            PC_F_r <= `INST_SIZE_ZEROS;
         end
         else begin
             InstrF_r <= InstrF;
@@ -63,6 +64,6 @@ module FetchStage (
         end
     end
 
-    assign InstrD = (rst == 1'b1) ? 32'h00000000 : InstrF_r;
-    assign PC_DE = (rst == 1'b1) ? 32'h00000000 : PC_F_r;
+    assign InstrD = rst ? `INST_SIZE_ZEROS : InstrF_r;
+    assign PC_DE = rst ? `INST_SIZE_ZEROS : PC_F_r;
 endmodule

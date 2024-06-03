@@ -1,12 +1,14 @@
+`include "../Constants.v"
+
 module PC_Module (
-    input [31:0] PC_NEXT, output reg[31:0] PC,
+    input [`INST_SIZE-1:0] PC_NEXT, output reg[`INST_SIZE-1:0] PC,
     input clk,
     input rst
 );
 
     always @(posedge clk) begin
-        if (rst == 1'b1)
-            PC <= {32{1'b0}};
+        if (rst)
+            PC <= `INST_SIZE_ZEROS;
         else
             PC <= PC_NEXT;
     end

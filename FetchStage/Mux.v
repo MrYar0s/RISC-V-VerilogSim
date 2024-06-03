@@ -1,6 +1,8 @@
+`include "../Constants.v"
+
 module Mux (
-    input [31:0] i0,   output [31:0] out,
-    input [31:0] i1,
+    input [`INST_SIZE-1:0] i0,   output [`INST_SIZE-1:0] out,
+    input [`INST_SIZE-1:0] i1,
     input sel
 );
 
