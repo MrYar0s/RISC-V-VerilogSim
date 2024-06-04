@@ -11,7 +11,9 @@ module DecodeStage (
     input [`INST_SIZE-1:0] WB_D,    output [`INST_SIZE-1:0] D1,
                                     output [`INST_SIZE-1:0] D2,
                                     output [24:0] Imm,
-                                    output [`INST_SIZE-1:0] PC_EX
+                                    output [`INST_SIZE-1:0] PC_EX,
+                                    output [4:0] RS1_EX,
+                                    output [4:0] RS2_EX
 );
 
     wire [2:0] ALU_CONTROL_D;
@@ -24,6 +26,7 @@ module DecodeStage (
     reg BRN_COND_D_r, MEM_WE_D_r, DE_WE_D_r, MEM_REG_D_r;
     reg [`INST_SIZE-1:0] D1_D_r, D2_D_r, PC_EX_r;
     reg [24:0] Imm_r;
+    reg [4:0] RS1_EX_r, RS2_EX_r;
 
     RegFile REG_FILE(
         .clk(clk),
@@ -58,7 +61,9 @@ module DecodeStage (
             D1_D_r <=           `INST_SIZE_ZEROS;
             D2_D_r <=           `INST_SIZE_ZEROS;
             PC_EX_r <=          `INST_SIZE_ZEROS;
-            Imm_r <=            24'h000000;
+            Imm_r <=            25'h000000;
+            RS1_EX_r    <= 5'b00000;
+            RS2_EX_r    <= 5'b00000;
         end
         else begin
             ALU_CONTROL_D_r <= ALU_CONTROL_D; 
@@ -71,6 +76,8 @@ module DecodeStage (
             D2_D_r <= D2_D;
             PC_EX_r <= PC_DE;
             Imm_r <= InstrD[31:7];
+            RS1_EX_r <= InstrD[19:15];
+            RS2_EX_r <= InstrD[24:20];
         end
     end
 
@@ -84,5 +91,7 @@ module DecodeStage (
     assign D2 = D2_D_r;
     assign PC_EX = PC_EX_r;
     assign Imm = Imm_r;
+    assign RS1_EX = RS1_EX_r;
+    assign RS2_EX = RS2_EX_r;
 
 endmodule

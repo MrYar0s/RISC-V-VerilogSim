@@ -10,7 +10,7 @@ module RegFile (
     input [`INST_SIZE-1:0] D3
 );
 
-    reg [`REG_FILE_SIZE-1:0] Registers [`INST_SIZE-1:0];
+    reg [`REG_FILE_SIZE-1:0] Registers [`INST_SIZE-1:0] /*verilator public*/;
 
     always @(negedge clk) begin
         if (WE3)

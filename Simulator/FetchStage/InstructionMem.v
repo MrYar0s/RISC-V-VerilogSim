@@ -10,7 +10,7 @@ module InstructionMem (
     assign D = rst ? {32{1'b0}} : Memory[A[17:2]];
 
     initial begin
-        $readmemh("memfile.hex", Memory);
+        $readmemh("FetchStage/memfile.hex", Memory);
     end
 
 endmodule

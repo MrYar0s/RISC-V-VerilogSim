@@ -13,7 +13,7 @@ module Simulator (input clk, input rst);
     wire [2:0] ALU_CONTROL;
     wire [1:0] ALU_SRC2, HU_RS1, HU_RS2;
     wire [24:0] Imm;
-    wire [4:0] RD;
+    wire [4:0] RD, RS1_EX, RS2_EX;
 
     FetchStage FETCH_STAGE(
         // Inputs
@@ -46,7 +46,9 @@ module Simulator (input clk, input rst);
         .D1(D1),
         .D2(D2),
         .Imm(Imm),
-        .PC_EX(PC_EX)
+        .PC_EX(PC_EX),
+        .RS1_EX(RS1_EX),
+        .RS2_EX(RS2_EX)
     );
 
     ExecuteStage EXECUTE_STAGE(
@@ -63,8 +65,8 @@ module Simulator (input clk, input rst);
         .D2(D2),
         .Imm(Imm),
         .PC_EX(PC_EX),
-        .HU_RS1(),
-        .HU_RS2(),
+        .HU_RS1(HU_RS1),
+        .HU_RS2(HU_RS2),
         .BP_MEM(BP_MEM),
         .BP_WB(WB_D),
         // Outputs
@@ -103,8 +105,8 @@ module Simulator (input clk, input rst);
         .MEM_READ_ME(MEM_REG_ME),
         .RD_ME(RD),
         .RD_WB(WB_A),
-        .RS1_EX(InstrD[19:15]),
-        .RS2_EX(InstrD[24:20]),
+        .RS1_EX(RS1_EX),
+        .RS2_EX(RS2_EX),
         .PC_R(PC_R),
         // Outputs
         .HU_RS1(HU_RS1),

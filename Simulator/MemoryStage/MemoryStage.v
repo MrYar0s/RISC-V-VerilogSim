@@ -10,7 +10,7 @@ module MemoryStage (
     input clk,
     input rst
 );
-    wire [`INST_SIZE-1:0] WB_D_M, BP_MEM;
+    wire [`INST_SIZE-1:0] WB_D_M;
 
     reg WB_WE_M_r;
     reg [`INST_SIZE-1:0] WB_D_M_r, BP_MEM_r;
@@ -28,8 +28,8 @@ module MemoryStage (
     );
 
     Mux2 MEM_MUX(
-        .i0(MEM_RD),
-        .i1(ALU_OUT),
+        .i0(ALU_OUT),
+        .i1(MEM_RD),
         .sel(MEM_REG),
         .out(WB_D_M)
     );
@@ -48,5 +48,10 @@ module MemoryStage (
             BP_MEM_r <= ALU_OUT;
         end
     end
+
+    assign WB_D = WB_D_M_r;
+    assign WB_A = WB_A_M_r;
+    assign WB_WE = WB_WE_M_r;
+    assign BP_MEM = BP_MEM_r;
     
 endmodule
