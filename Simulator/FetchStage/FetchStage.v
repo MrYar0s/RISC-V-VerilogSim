@@ -12,7 +12,8 @@ module FetchStage (
     input [`INST_SIZE-1:0] PC_DISP
 );
 
-    wire [`INST_SIZE-1:0] PC, PC_NEXT;
+    wire [`INST_SIZE-1:0] PC /*verilator public*/;
+    wire [`INST_SIZE-1:0] PC_NEXT;
 
     wire [`INST_SIZE-1:0] PC_1, PC_2;
     wire [`INST_SIZE-1:0] InstrF;

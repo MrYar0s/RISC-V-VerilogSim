@@ -5,12 +5,12 @@ module InstructionMem (
     input [`INST_SIZE-1:0] A
 );
 
-    reg [`INST_SIZE-1:0] Memory[`MEM_SIZE-1:0];
+    reg [`INST_SIZE-1:0] Memory[`MEM_SIZE-1:0] /*verilator public*/;
 
     assign D = rst ? {32{1'b0}} : Memory[A[17:2]];
 
-    initial begin
-        $readmemh("FetchStage/memfile.hex", Memory);
-    end
+    // initial begin
+    //     $readmemh("FetchStage/memfile.hex", Memory);
+    // end
 
 endmodule
