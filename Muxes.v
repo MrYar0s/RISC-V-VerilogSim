@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module Mux2 (
     input [`INST_SIZE-1:0] i0,   output [`INST_SIZE-1:0] out,

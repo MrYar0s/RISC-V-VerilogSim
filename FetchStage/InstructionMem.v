@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module InstructionMem (
     input rst,          output [`INST_SIZE-1:0] D,

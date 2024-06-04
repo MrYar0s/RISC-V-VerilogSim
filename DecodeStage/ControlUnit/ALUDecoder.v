@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module ALUDecoder (
     input [1:0] ALU_OP,     output [2:0] ALU_CONTROL,

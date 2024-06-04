@@ -1,5 +1,5 @@
-`include "ControlUnit/ControlUnit.v"
-`include "RegFile.v"
+`include "DecodeStage/ControlUnit/ControlUnit.v"
+`include "DecodeStage/RegFile.v"
 
 module DecodeStage (
     input clk,                      output [2:0] ALU_CONTROL,

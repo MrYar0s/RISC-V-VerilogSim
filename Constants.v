@@ -27,3 +27,7 @@
 // ALU operations
 `define ALU_OP_ARITHM_REG   2'b00
 `define ALU_OP_ARITHM_IMM   2'b01
+
+`define HU_SRC_WB       2'b10
+`define HU_SRC_MEM      2'b01
+`define HU_SRC_REG      2'b00

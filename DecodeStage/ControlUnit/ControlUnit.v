@@ -1,5 +1,5 @@
-`include "ControlUnit/ALUDecoder.v"
-`include "ControlUnit/MainController.v"
+`include "DecodeStage/ControlUnit/ALUDecoder.v"
+`include "DecodeStage/ControlUnit/MainController.v"
 
 module ControlUnit (
     input [`INST_SIZE-1:0] InstrD,  output [2:0] ALU_CONTROL,

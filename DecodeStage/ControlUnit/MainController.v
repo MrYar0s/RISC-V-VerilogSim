@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module MainController (
     input [6:0] opcode, output[1:0] ALU_OP,

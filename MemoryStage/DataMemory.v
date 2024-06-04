@@ -1,5 +1,4 @@
-`include "../Muxes.v"
-`include "../Constants.v"
+`include "Constants.v"
 
 module DataMemory (
     input WE,                   output [`INST_SIZE-1:0] RD,

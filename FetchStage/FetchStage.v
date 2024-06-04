@@ -1,8 +1,8 @@
-`include "InstructionMem.v"
-`include "../Mux.v"
-`include "PC_Module.v"
-`include "Summ.v"
-`include "../Constants.v"
+`include "FetchStage/InstructionMem.v"
+`include "Muxes.v"
+`include "FetchStage/PC_Module.v"
+`include "FetchStage/Summ.v"
+`include "Constants.v"
 
 module FetchStage (
     input clk,              output [`INST_SIZE-1:0] InstrD,

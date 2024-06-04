@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module PC_Module (
     input [`INST_SIZE-1:0] PC_NEXT, output reg[`INST_SIZE-1:0] PC,

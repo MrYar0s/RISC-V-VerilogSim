@@ -1,7 +1,6 @@
-`include "Alu.v"
-`include "CondControl.v"
-`include "ImmDecoder.v"
-`include "../Muxes.v"
+`include "ExecuteStage/Alu.v"
+`include "ExecuteStage/CondControl.v"
+`include "ExecuteStage/ImmDecoder.v"
 
 module ExecuteStage (
     input [2:0] ALU_CONTROL,        output [`INST_SIZE-1:0] ALU_OUT,

@@ -1,4 +1,4 @@
-`include "../Constants.v"
+`include "Constants.v"
 
 module Alu (
     input [`INST_SIZE-1:0] A,   output [`INST_SIZE-1:0] OUT,

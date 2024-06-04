@@ -1,4 +1,5 @@
-`include "../Constants.v"
+`include "Constants.v"
+
 module Cmp (
     input [`INST_SIZE-1:0] RS1V,    output OUT,
     input [`INST_SIZE-1:0] RS2V,

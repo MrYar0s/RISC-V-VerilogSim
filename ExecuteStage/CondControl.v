@@ -1,4 +1,4 @@
-`include "Cmp.v"
+`include "ExecuteStage/Cmp.v"
 
 module CondControl (
     input [`INST_SIZE-1:0] RS1V,    output OUT,

@@ -1,4 +1,4 @@
-`include "DataMemory.v"
+`include "MemoryStage/DataMemory.v"
 
 module MemoryStage (
     input [`INST_SIZE-1:0] ALU_OUT, output [`INST_SIZE-1:0] WB_D,
