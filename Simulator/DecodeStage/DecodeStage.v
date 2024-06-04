@@ -9,8 +9,8 @@ module DecodeStage (
     input WB_WE,                    output DE_WE,
     input [`REG_NUM_SIZE-1:0] WB_A, output MEM_REG,
     input [`INST_SIZE-1:0] WB_D,    output [`INST_SIZE-1:0] D1,
-                                    output [`INST_SIZE-1:0] D2,
-                                    output [24:0] Imm,
+    input STALL,                    output [`INST_SIZE-1:0] D2,
+    input FLUSH,                    output [24:0] Imm,
                                     output [`INST_SIZE-1:0] PC_EX,
                                     output [4:0] RS1_EX,
                                     output [4:0] RS2_EX
@@ -51,7 +51,7 @@ module DecodeStage (
     );
 
     always @(posedge clk or negedge rst) begin
-        if(rst) begin
+        if(rst || FLUSH) begin
             ALU_CONTROL_D_r <=  3'b000;
             ALU_SRC2_D_r <=     2'b00;
             BRN_COND_D_r <=     1'b0;
@@ -65,7 +65,7 @@ module DecodeStage (
             RS1_EX_r    <= 5'b00000;
             RS2_EX_r    <= 5'b00000;
         end
-        else begin
+        else if(STALL == 1'b0) begin
             ALU_CONTROL_D_r <= ALU_CONTROL_D; 
             ALU_SRC2_D_r <= ALU_SRC2_D;
             BRN_COND_D_r <= BRN_COND_D;

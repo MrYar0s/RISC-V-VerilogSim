@@ -2,6 +2,7 @@
 #include <elfio/elfio.hpp>
 
 #include "VSimulator.h"
+#include "VSimulator_DecodeStage.h"
 #include "VSimulator_FetchStage.h"
 #include "VSimulator_InstructionMem.h"
 #include "VSimulator_Simulator.h"

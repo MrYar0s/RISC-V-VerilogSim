@@ -22,6 +22,8 @@ module Simulator (input clk, input rst);
         .PC_R(PC_R),
         .PC_EX(PC_EX),
         .PC_DISP(PC_DISP),
+        .FLUSH(FLUSH),
+        .STALL(STALL_FE),
         // Outputs
         .InstrD(InstrD),
         .PC_DE(PC_DE)
@@ -36,6 +38,8 @@ module Simulator (input clk, input rst);
         .WB_WE(WB_WE),
         .WB_A(WB_A),
         .WB_D(WB_D),
+        .FLUSH(FLUSH),
+        .STALL(STALL_DE),
         // Outputs
         .ALU_CONTROL(ALU_CONTROL),
         .ALU_SRC2(ALU_SRC2),
@@ -69,6 +73,8 @@ module Simulator (input clk, input rst);
         .HU_RS2(HU_RS2),
         .BP_MEM(BP_MEM),
         .BP_WB(WB_D),
+        .FLUSH(FLUSH),
+        .STALL(STALL_EX),
         // Outputs
         .ALU_OUT(ALU_OUT),
         .PC_R(PC_R),

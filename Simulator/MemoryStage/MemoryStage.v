@@ -13,7 +13,7 @@ module MemoryStage (
     wire [`INST_SIZE-1:0] WB_D_M;
 
     reg WB_WE_M_r;
-    reg [`INST_SIZE-1:0] WB_D_M_r, BP_MEM_r;
+    reg [`INST_SIZE-1:0] WB_D_M_r;
     reg [4:0] WB_A_M_r;
 
     wire [`INST_SIZE-1:0] MEM_RD;
@@ -38,20 +38,18 @@ module MemoryStage (
         if (rst) begin
             WB_WE_M_r <= 1'b0;
             WB_A_M_r <= 5'b00000;
-            WB_D_M_r <= 32'h00000000; 
-            BP_MEM_r <= 32'h00000000;
+            WB_D_M_r <= 32'h00000000;
         end
         else begin
             WB_WE_M_r <= ME_WE;
             WB_A_M_r <= RD;
             WB_D_M_r <= WB_D_M;
-            BP_MEM_r <= ALU_OUT;
         end
     end
 
     assign WB_D = WB_D_M_r;
     assign WB_A = WB_A_M_r;
     assign WB_WE = WB_WE_M_r;
-    assign BP_MEM = BP_MEM_r;
-    
+    assign BP_MEM = ALU_OUT;
+
 endmodule

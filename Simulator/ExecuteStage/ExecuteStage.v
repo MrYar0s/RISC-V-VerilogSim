@@ -18,21 +18,22 @@ module ExecuteStage (
     input [`INST_SIZE-1:0] BP_MEM,
     input [`INST_SIZE-1:0] BP_WB,
     input clk,
-    input rst
+    input rst,
+    input STALL,
+    input FLUSH
 );
 
     wire [`INST_SIZE-1:0] RS1_VAR, RS2_VAR, RS2_CHS;
 
-    wire PC_R_M;
     wire [`INST_SIZE-1:0] ALU_OUT_M;
 
-    reg PC_R_M_r, MEM_WE_M_r, ME_WE_M_r, MEM_REG_M_r;
-    reg [`INST_SIZE-1:0] ALU_OUT_M_r, PC_DISP_M_r, WD_ME_M_r;
+    reg MEM_WE_M_r, ME_WE_M_r, MEM_REG_M_r;
+    reg [`INST_SIZE-1:0] ALU_OUT_M_r, WD_ME_M_r;
     reg [4:0] RD_M_r;
 
     CondControl COND_CONTROL(
         .RS1V(RS1_VAR),
-        .OUT(PC_R_M),
+        .OUT(PC_R),
         .RS2V(RS2_VAR),
         .OP(Imm[7:5]),
         .BRN_COND(BRN_COND)
@@ -82,35 +83,30 @@ module ExecuteStage (
     );
 
     always @(posedge clk or negedge rst) begin
-        if(rst) begin
-            PC_R_M_r        <= 1'b0;
+        if(rst || FLUSH) begin
             MEM_WE_M_r      <= 1'b0;
             ME_WE_M_r       <= 1'b0;
             MEM_REG_M_r     <= 1'b0;
             ALU_OUT_M_r     <= `INST_SIZE_ZEROS;
-            PC_DISP_M_r     <= `INST_SIZE_ZEROS;
             WD_ME_M_r       <= `INST_SIZE_ZEROS;
             RD_M_r          <= 5'b00000;
         end
-        else begin
-            PC_R_M_r        <= PC_R_M;
+        else if (STALL == 1'b0) begin
             MEM_WE_M_r      <= MEM_WE;
             ME_WE_M_r       <= DE_WE;
             MEM_REG_M_r     <= MEM_REG;
             ALU_OUT_M_r     <= ALU_OUT_M;
-            PC_DISP_M_r     <= ImmB;
             WD_ME_M_r       <= D1;
             RD_M_r          <= Imm[4:0];
         end
     end
 
     assign ALU_OUT = ALU_OUT_M_r;
-    assign PC_R = PC_R_M_r;
     assign RD = RD_M_r;
     assign WD_ME = WD_ME_M_r;
     assign MEM_WE_ME = MEM_WE_M_r;
     assign ME_WE = ME_WE_M_r;
     assign MEM_REG_ME = MEM_REG_M_r;
-    assign PC_DISP = PC_DISP_M_r;
+    assign PC_DISP = ImmB;
 
 endmodule

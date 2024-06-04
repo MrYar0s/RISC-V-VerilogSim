@@ -9,7 +9,9 @@ module FetchStage (
     input rst,              output [`INST_SIZE-1:0] PC_DE,
     input PC_R,
     input [`INST_SIZE-1:0] PC_EX,
-    input [`INST_SIZE-1:0] PC_DISP
+    input [`INST_SIZE-1:0] PC_DISP,
+    input STALL,
+    input FLUSH
 );
 
     wire [`INST_SIZE-1:0] PC /*verilator public*/;
@@ -55,11 +57,11 @@ module FetchStage (
     );
 
     always @(posedge clk or negedge rst) begin
-        if (rst) begin
+        if (rst |||FLUSH) begin
             InstrF_r <= `INST_SIZE_ZEROS;
             PC_F_r <= `INST_SIZE_ZEROS;
         end
-        else begin
+        else if (STALL == 1'b0) begin
             InstrF_r <= InstrF;
             PC_F_r <= PC;
         end
