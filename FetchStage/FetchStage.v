@@ -1,5 +1,5 @@
 `include "InstructionMem.v"
-`include "Mux.v"
+`include "../Mux.v"
 `include "PC_Module.v"
 `include "Summ.v"
 `include "../Constants.v"
@@ -20,14 +20,14 @@ module FetchStage (
     reg [`INST_SIZE-1:0] InstrF_r;
     reg [`INST_SIZE-1:0] PC_F_r;
 
-    Mux PC1_MUX (
+    Mux2 PC1_MUX (
         .i0(PC),
         .i1(PC_EX),
         .sel(PC_R),
         .out(PC_1)
     );
 
-    Mux PC2_MUX (
+    Mux2 PC2_MUX (
         .i0(`INCR_SIZE),
         .i1(PC_DISP),
         .sel(PC_R),

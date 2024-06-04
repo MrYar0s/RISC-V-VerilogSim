@@ -69,7 +69,7 @@ module DecodeStage (
             MEM_REG_D_r <= MEM_REG_D;
             D1_D_r <= D1_D;
             D2_D_r <= D2_D;
-            PC_EX_r <= PC_EX;
+            PC_EX_r <= PC_DE;
             Imm_r <= InstrD[31:7];
         end
     end
