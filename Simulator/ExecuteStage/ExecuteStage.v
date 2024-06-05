@@ -96,7 +96,7 @@ module ExecuteStage (
             ME_WE_M_r       <= DE_WE;
             MEM_REG_M_r     <= MEM_REG;
             ALU_OUT_M_r     <= ALU_OUT_M;
-            WD_ME_M_r       <= D1;
+            WD_ME_M_r       <= RS2_VAR;
             RD_M_r          <= Imm[4:0];
         end
     end
